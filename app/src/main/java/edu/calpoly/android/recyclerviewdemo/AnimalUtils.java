@@ -1,6 +1,35 @@
 package edu.calpoly.android.recyclerviewdemo;
 
+import java.util.ArrayList;
+
 public class AnimalUtils {
+
+    public static class Animal {
+        private String mName;
+        private String mImageUrl;
+
+        public Animal(String name, String imageUrl) {
+            this.mName = name;
+            this.mImageUrl = imageUrl;
+        }
+
+        public String getName() {
+            return mName;
+        }
+
+        public String getImageUrl() {
+            return mImageUrl;
+        }
+    }
+
+    public static ArrayList<Animal> getAllTheAnimals() {
+        ArrayList<Animal> animals = new ArrayList<>(ANIMALS.length);
+        for (int i = 0; i < ANIMALS.length; i++) {
+            animals.add(new Animal(ANIMALS[i], URLS[i]));
+        }
+
+        return animals;
+    }
 
     private static String[] ANIMALS = {
             "pronghorn",
