@@ -1,12 +1,16 @@
 package edu.calpoly.android.recyclerviewdemo;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.ArrayList;
 
 public class AnimalUtils {
 
-    public static class Animal {
+    public static class Animal implements Parcelable {
         private String mName;
         private String mImageUrl;
+        private boolean mDangerous;
 
         public Animal(String name, String imageUrl) {
             this.mName = name;
@@ -20,6 +24,41 @@ public class AnimalUtils {
         public String getImageUrl() {
             return mImageUrl;
         }
+
+        public boolean isDangerous() {
+            return mDangerous;
+        }
+
+        public void setDangerous(boolean dangerous) {
+            this.mDangerous = dangerous;
+        }
+
+        public int describeContents() {
+            return 0;
+        }
+
+        public void writeToParcel(Parcel out, int flags) {
+            out.writeString(mName);
+            out.writeString(mImageUrl);
+            boolean[] arr = new boolean[1];
+            arr[0] = mDangerous;
+            out.writeBooleanArray(arr);
+        }
+
+        public static final Parcelable.Creator<Animal> CREATOR
+                = new Parcelable.Creator<Animal>() {
+            public Animal createFromParcel(Parcel in) {
+                Animal a = new Animal(in.readString(), in.readString());
+                boolean[] arr = new boolean[1];
+                in.readBooleanArray(arr);
+                a.setDangerous(arr[0]);
+                return a;
+            }
+
+            public Animal[] newArray(int size) {
+                return new Animal[size];
+            }
+        };
     }
 
     public static ArrayList<Animal> getAllTheAnimals() {
