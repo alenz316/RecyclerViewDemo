@@ -29,9 +29,6 @@ public class AnimalUtils {
             return mDangerous;
         }
 
-        public void setDangerous(boolean dangerous) {
-            this.mDangerous = dangerous;
-        }
 
         public int describeContents() {
             return 0;
